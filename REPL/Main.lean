@@ -264,6 +264,10 @@ partial def getLines : IO String := do
   if line.trim.isEmpty then
     return line
   else
+    let line := if line.endsWith "\n" then
+      line.dropRight 1
+    else
+      line
     return line ++ (← getLines)
 
 instance [ToJson α] [ToJson β] : ToJson (α ⊕ β) where
